@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  Alert,
   Button,
   Col,
   Container,
@@ -17,9 +16,12 @@ import {
 } from "reactstrap";
 
 import { NavbarGlobal } from "../../Components/views/Navbar/Navbar-global.component";
+//redux
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alert";
+import AlertComponent from "../../Components/views/Alert/Alert.component";
 
-const Login = () => {
-  const [alert4, setAlert4] = React.useState(true);
+const Login = ({ setAlert }) => {
   const [passwordFocus, setPasswordFocus] = React.useState(false);
   const [emailFocus, setEmailFocus] = React.useState(false);
 
@@ -43,7 +45,7 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log({ formData });
+    setAlert("test", "danger");
   };
 
   return (
@@ -71,24 +73,7 @@ const Login = () => {
                   <p className="lead">
                     <i className="fas fa-user"></i> Sign into Your Account
                   </p>
-                  <Alert color="danger" isOpen={alert4}>
-                    <Container>
-                      <div className="alert-icon">
-                        <i className="now-ui-icons objects_support-17"></i>
-                      </div>
-                      <strong>Oh snap!</strong> Change a few things up and try
-                      again.
-                      <button
-                        type="button"
-                        className="close"
-                        onClick={() => setAlert4(false)}
-                      >
-                        <span aria-hidden="true">
-                          <i className="now-ui-icons ui-1_simple-remove"></i>
-                        </span>
-                      </button>
-                    </Container>
-                  </Alert>
+                  <AlertComponent />
                 </CardHeader>
 
                 <div className="text-center"></div>
@@ -177,4 +162,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default connect(null, { setAlert })(Login);
