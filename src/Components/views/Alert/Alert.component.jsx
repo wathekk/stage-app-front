@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Alert, Container } from "reactstrap";
 import { connect } from "react-redux";
-import { removeAlert } from "../../../actions/alert";
+import { removeAlert } from "../../../redux/actions/alert";
 
 const AlertComponent = ({ alerts, removeAlert }) =>
   alerts !== null &&
   alerts.length > 0 &&
   alerts.map((alert) => (
-    <Alert color={alert.alertType}>
+    <Alert key={alert.id} color={alert.alertType}>
       <Container>
         <div className="alert-icon">
           <i className="now-ui-icons objects_support-17"></i>

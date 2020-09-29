@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -18,12 +19,14 @@ import {
 import { NavbarGlobal } from "../../Components/views/Navbar/Navbar-global.component";
 //redux
 import { connect } from "react-redux";
-import { setAlert } from "../../actions/alert";
+import { setAlert } from "../../redux/actions/alert";
+import { login } from "../../redux/actions/auth";
+
 import AlertComponent from "../../Components/views/Alert/Alert.component";
 
-const Login = ({ setAlert }) => {
+const Login = ({ setAlert, login }) => {
   const [passwordFocus, setPasswordFocus] = React.useState(false);
-  const [emailFocus, setEmailFocus] = React.useState(false);
+  const [usernameFocus, setUsernameFocus] = React.useState(false);
 
   React.useEffect(() => {
     document.body.classList.add("sidebar-collapse");
@@ -34,18 +37,19 @@ const Login = ({ setAlert }) => {
   });
 
   const [formData, setFormData] = React.useState({
-    email: "",
+    username: "",
     password: "",
   });
 
-  const { email, password } = formData;
+  const { username, password } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setAlert("test", "danger");
+    login({ username, password });
+    setAlert("test", "info");
   };
 
   return (
@@ -82,21 +86,22 @@ const Login = ({ setAlert }) => {
                   <CardBody>
                     <InputGroup
                       className={
-                        "no-border" + (emailFocus ? " input-group-focus" : "")
+                        "no-border" +
+                        (usernameFocus ? " input-group-focus" : "")
                       }
                     >
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <i className="now-ui-icons ui-1_email-85"></i>
+                          <i className="now-ui-icons users_circle-08"></i>
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
-                        placeholder="Email..."
-                        type="email"
-                        onFocus={() => setEmailFocus(true)}
-                        onBlur={() => setEmailFocus(false)}
-                        name="email"
-                        value={email}
+                        placeholder="username..."
+                        type="text"
+                        onFocus={() => setUsernameFocus(true)}
+                        onBlur={() => setUsernameFocus(false)}
+                        name="username"
+                        value={username}
                         onChange={(e) => onChange(e)}
                         required
                       ></Input>
@@ -162,4 +167,9 @@ const Login = ({ setAlert }) => {
   );
 };
 
-export default connect(null, { setAlert })(Login);
+Login.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert, login })(Login);

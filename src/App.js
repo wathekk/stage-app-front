@@ -13,7 +13,7 @@ import Login from "./Pages/LoginPage/login-page.jsx";
 import Footer from "./Components/views/Footer/Footer.component.jsx";
 //Redux
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./redux/store";
 
 const App = () => {
   return (
