@@ -1,12 +1,86 @@
-import React from "react";
-
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { NavLink as NavLinkRouter } from "react-router-dom";
+import { logout } from "../../../Redux/actions/auth";
 
 // reactstrap components
-import { Collapse, Navbar, NavItem, Nav, Container } from "reactstrap";
+import { Collapse, Navbar, NavItem, Nav, Container, Button } from "reactstrap";
 
-export const NavbarGlobal = () => {
+const NavbarGlobal = ({ auth: { isAuthenticated, token }, logout }) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
+
+  const guestLinks = (
+    <>
+      <NavItem className="active">
+        <NavLinkRouter to="/index">
+          <div className="nav-link">
+            <i className="now-ui-icons objects_globe"></i>
+            <p>Home</p>
+          </div>
+        </NavLinkRouter>
+      </NavItem>
+      <NavItem>
+        <NavLinkRouter to="/About">
+          <div className="nav-link">
+            <i className="now-ui-icons travel_info"></i>
+            <p>About</p>
+          </div>
+        </NavLinkRouter>
+      </NavItem>
+      <NavItem>
+        <NavLinkRouter to="/faq">
+          <div className="nav-link">
+            <i className="now-ui-icons education_hat"></i>
+
+            <p>FAQ</p>
+          </div>
+        </NavLinkRouter>
+      </NavItem>
+    </>
+  );
+
+  const authLinks = (
+    <>
+      <NavItem className="active">
+        <NavLinkRouter to="/user">
+          <div className="nav-link">
+            <i className="now-ui-icons objects_globe"></i>
+            <p>Home</p>
+          </div>
+        </NavLinkRouter>
+      </NavItem>
+      <NavItem>
+        <NavLinkRouter to="/About">
+          <div className="nav-link">
+            <i className="now-ui-icons travel_info"></i>
+            <p>About</p>
+          </div>
+        </NavLinkRouter>
+      </NavItem>
+      <NavItem>
+        <NavLinkRouter to="/faq">
+          <div className="nav-link">
+            <i className="now-ui-icons education_hat"></i>
+
+            <p>FAQ</p>
+          </div>
+        </NavLinkRouter>
+      </NavItem>
+      <NavItem>
+        <NavLinkRouter to="/index">
+          <Button
+            onClick={logout}
+            className="nav-link btn-neutral"
+            color="info"
+          >
+            <p>Logout</p>
+            <i style={{ marginLeft: "0.5rem" }} className="pi pi-sign-out"></i>
+          </Button>
+        </NavLinkRouter>
+      </NavItem>
+    </>
+  );
 
   return (
     <div>
@@ -19,10 +93,10 @@ export const NavbarGlobal = () => {
           }}
         />
       ) : null}
-      <Navbar className="bg-info" expand="lg">
+      <Navbar className="bg-info" expand="lg" style={{ marginBottom: "0px" }}>
         <Container>
           <div className="navbar-translate">
-            <NavLinkRouter to="/index">
+            <NavLinkRouter to={isAuthenticated ? "/user" : "/index"}>
               <div className="navbar-brand">
                 <img
                   alt="..."
@@ -53,31 +127,7 @@ export const NavbarGlobal = () => {
             navbar
           >
             <Nav className="ml-auto" navbar>
-              <NavItem className="active">
-                <NavLinkRouter to="/index">
-                  <div className="nav-link">
-                    <i className="now-ui-icons objects_globe"></i>
-                    <p>Home</p>
-                  </div>
-                </NavLinkRouter>
-              </NavItem>
-              <NavItem>
-                <NavLinkRouter to="/About">
-                  <div className="nav-link">
-                    <i className="now-ui-icons travel_info"></i>
-                    <p>About</p>
-                  </div>
-                </NavLinkRouter>
-              </NavItem>
-              <NavItem>
-                <NavLinkRouter to="/faq">
-                  <div className="nav-link">
-                    <i className="now-ui-icons education_hat"></i>
-
-                    <p>FAQ</p>
-                  </div>
-                </NavLinkRouter>
-              </NavItem>
+              {<Fragment>{token ? authLinks : guestLinks}</Fragment>}
             </Nav>
           </Collapse>
         </Container>
@@ -85,3 +135,14 @@ export const NavbarGlobal = () => {
     </div>
   );
 };
+
+NavbarGlobal.prototypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(NavbarGlobal);

@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-
+import PrivateRoute from "./Routes/PrivateRoute";
 import "./App.css";
 
 import Index from "./Pages/LandingPage/Index-page.jsx";
@@ -13,15 +13,17 @@ import Login from "./Pages/LoginPage/login-page.jsx";
 import Footer from "./Components/views/Footer/Footer.component.jsx";
 //Redux
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import store from "./Redux/store";
+import StudentPage from "./Pages/StudentPage/Student-page";
 
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route path="/index" component={Index} />
-          <Route path="/login" component={Login} />
+          <Route exact path="/index" component={Index} />
+          <Route exact path="/login" component={Login} />
+          <PrivateRoute exact path="/user" component={StudentPage} />
           <Redirect to="/index" />
           <Redirect from="/" to="/index" />
         </Switch>

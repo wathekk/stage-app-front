@@ -5,6 +5,7 @@ import IndexNavbar from "../../Components/views/Navbar/Navbar.component";
 import IndexHeader from "../../Components/views/Header/Header.component";
 
 import "./index-page.styles.css";
+import { CardContainer } from "../../Components/views/CardContainer/CardContainer.component ";
 
 function Index() {
   React.useEffect(() => {
@@ -24,20 +25,7 @@ function Index() {
       <div className="wrapper">
         <IndexHeader />
         <div className="main">
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
-          <h1>Landing page</h1>
+          <CardContainer />
         </div>
       </div>
     </>

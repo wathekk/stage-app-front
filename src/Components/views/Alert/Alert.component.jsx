@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Alert, Container } from "reactstrap";
 import { connect } from "react-redux";
-import { removeAlert } from "../../../redux/actions/alert";
+import { removeAlert } from "../../../Redux/actions/alert";
 
 const AlertComponent = ({ alerts, removeAlert }) =>
   alerts !== null &&

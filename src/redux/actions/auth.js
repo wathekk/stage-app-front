@@ -1,7 +1,7 @@
 import axios from "axios";
 import { setAlert } from "./alert";
 
-import { LOGIN_FAIL, LOGIN_SUCCESS } from "./types";
+import { LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT } from "./types";
 
 export const login = ({ username, password }) => async (dispatch) => {
   const config = {
@@ -32,4 +32,8 @@ export const login = ({ username, password }) => async (dispatch) => {
       type: LOGIN_FAIL,
     });
   }
+};
+
+export const logout = () => (dispatch) => {
+  dispatch({ type: LOGOUT });
 };

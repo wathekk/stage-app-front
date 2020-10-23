@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import {
   Button,
   Col,
@@ -16,15 +16,15 @@ import {
   InputGroup,
 } from "reactstrap";
 
-import { NavbarGlobal } from "../../Components/views/Navbar/Navbar-global.component";
+import NavbarGlobal from "../../Components/views/Navbar/Navbar-global.component";
 //redux
 import { connect } from "react-redux";
-import { setAlert } from "../../redux/actions/alert";
-import { login } from "../../redux/actions/auth";
+import { setAlert } from "../../Redux/actions/alert";
+import { login } from "../../Redux/actions/auth";
 
 import AlertComponent from "../../Components/views/Alert/Alert.component";
 
-const Login = ({ setAlert, login }) => {
+const Login = ({ setAlert, login, token }) => {
   const [passwordFocus, setPasswordFocus] = React.useState(false);
   const [usernameFocus, setUsernameFocus] = React.useState(false);
 
@@ -51,6 +51,10 @@ const Login = ({ setAlert, login }) => {
     login({ username, password });
     setAlert("test", "info");
   };
+
+  if (token) {
+    return <Redirect to="/user" />;
+  }
 
   return (
     <>
@@ -170,6 +174,11 @@ const Login = ({ setAlert, login }) => {
 Login.propTypes = {
   setAlert: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
+  token: PropTypes.object,
 };
 
-export default connect(null, { setAlert, login })(Login);
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+});
+
+export default connect(mapStateToProps, { setAlert, login })(Login);
