@@ -82,6 +82,58 @@ const NavbarGlobal = ({ auth: { isAuthenticated, token }, logout }) => {
     </>
   );
 
+  const studentLinks = (
+    <>
+      <NavItem className="active">
+        <NavLinkRouter to="/user">
+          <div className="nav-link">
+            <i className="now-ui-icons objects_globe"></i>
+            <p>Mon Profile</p>
+          </div>
+        </NavLinkRouter>
+      </NavItem>
+      <NavItem>
+        <NavLinkRouter to="/stages">
+          <div className="nav-link">
+            <i className="now-ui-icons travel_info"></i>
+            <p>Stages</p>
+          </div>
+        </NavLinkRouter>
+      </NavItem>
+      <NavItem>
+        <NavLinkRouter to="/prop-stage">
+          <div className="nav-link">
+            <i className="now-ui-icons education_hat"></i>
+
+            <p>Proposer un stage</p>
+          </div>
+        </NavLinkRouter>
+      </NavItem>
+      <NavItem>
+        <NavLinkRouter to="/etudiant-stages">
+          <div className="nav-link">
+            <i className="now-ui-icons education_hat"></i>
+
+            <p>Voir mes stages</p>
+          </div>
+        </NavLinkRouter>
+      </NavItem>
+
+      <NavItem>
+        <NavLinkRouter to="/index">
+          <Button
+            onClick={logout}
+            className="nav-link btn-neutral"
+            color="info"
+          >
+            <p>Logout</p>
+            <i style={{ marginLeft: "0.5rem" }} className="pi pi-sign-out"></i>
+          </Button>
+        </NavLinkRouter>
+      </NavItem>
+    </>
+  );
+
   return (
     <div>
       {collapseOpen ? (
@@ -96,7 +148,7 @@ const NavbarGlobal = ({ auth: { isAuthenticated, token }, logout }) => {
       <Navbar className="bg-info" expand="lg" style={{ marginBottom: "0px" }}>
         <Container>
           <div className="navbar-translate">
-            <NavLinkRouter to={isAuthenticated ? "/user" : "/index"}>
+            <NavLinkRouter to={isAuthenticated ? "/stage" : "/index"}>
               <div className="navbar-brand">
                 <img
                   alt="..."
@@ -127,7 +179,7 @@ const NavbarGlobal = ({ auth: { isAuthenticated, token }, logout }) => {
             navbar
           >
             <Nav className="ml-auto" navbar>
-              {<Fragment>{token ? authLinks : guestLinks}</Fragment>}
+              {<Fragment>{token ? studentLinks : guestLinks}</Fragment>}
             </Nav>
           </Collapse>
         </Container>

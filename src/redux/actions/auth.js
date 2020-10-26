@@ -26,6 +26,7 @@ export const login = ({ username, password }) => async (dispatch) => {
     });
   } catch (error) {
     if (error) {
+      console.log(error);
       dispatch(setAlert(error.response.data.message, "danger"));
     }
     dispatch({
